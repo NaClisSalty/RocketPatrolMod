@@ -10,6 +10,8 @@ class Play extends Phaser.Scene {
         this.load.image('starfield', './assets/starfield.png');
         this.load.spritesheet('explosion', './assets/explosion.png', 
         {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
+        //game.load.audio('folk', ['./assets/folk.mp3']);
+        this.load.audio('folk', './assets/folk.mp3');
     }
 
     create() {
@@ -74,10 +76,16 @@ class Play extends Phaser.Scene {
             '(F)ire to Restart or LEFT for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
+
+
+        //play music on loop
+        var music1 = this.sound.add('folk');
+        music1.setLoop(true);
+        music1.play();
     }
 
     update(){
-
+        
         //check key input for restart
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyF)){
             this.scene.restart(this.p1Score);
@@ -148,6 +156,8 @@ class Play extends Phaser.Scene {
         this.scoreLeft.text = this.p1Score;
         this.sound.play('sfx_explosion');
     }
+
+    
     
 
 
