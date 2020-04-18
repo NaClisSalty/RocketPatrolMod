@@ -62,6 +62,22 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
+        //create a timer and way to check wich difficulty option was chosen
+        let startTime = 0;
+        this.startTime = game.settings.gameTimer/1000;
+        let timeConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
+        }
+        
         this.scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
 
         //game over flag
@@ -69,6 +85,8 @@ class Play extends Phaser.Scene {
 
         //60-second play clock
         scoreConfig.fixedWidth = 0;
+        timeConfig.fixedWidth = 0;
+        
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', 
             scoreConfig).setOrigin(0.5);
@@ -76,21 +94,35 @@ class Play extends Phaser.Scene {
             '(F)ire to Restart or LEFT for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
-
-
+        
+        //put timer on screen
+        this.timeRight = this.add.text(500, 54, this.startTime -this.clock.getElapsedSeconds(), timeConfig)
         //play music on loop
-        var music1 = this.sound.add('folk');
-        music1.setLoop(true);
-        music1.play();
+        let music1 =0;
+        this.music1 = this.sound.add('folk');
+        //music1.setLoop(true);
+        this.music1.play();
     }
 
     update(){
-        
+        if(this.startTime -this.clock.getElapsedSeconds() == 0){
+            this.gameOver = true;
+            
+            console.log('hi');
+        }
+        //console.log(this.clock.getElapsedSeconds());
         //check key input for restart
+        //show time left on screen
+        this.timeRight.text = Math.floor(this.startTime -this.clock.getElapsedSeconds());
+        //console.log(this.startTime);
+        
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyF)){
+            this.music1.stop();
             this.scene.restart(this.p1Score);
+            
         }
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)){
+            this.music1.stop();
             this.scene.start("menuScene");
         }
 
@@ -155,6 +187,11 @@ class Play extends Phaser.Scene {
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score;
         this.sound.play('sfx_explosion');
+        //add time on clock on ship destroy
+        game.settings.gameTimer+= 10000;
+        this.startTime+=10;
+        this.clock.delay+=10000;
+        
     }
 
     
