@@ -11,6 +11,7 @@ class Play extends Phaser.Scene {
         this.load.spritesheet('explosion', './assets/explosion.png', 
         {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
         //game.load.audio('folk', ['./assets/folk.mp3']);
+        //gotten free online at:https://freemusicarchive.org/music/TRG_Banks
         this.load.audio('folk', './assets/folk.mp3');
         this.load.image('spaceship2', './assets/Rocket_Patrol_Ship2.png');
     }
