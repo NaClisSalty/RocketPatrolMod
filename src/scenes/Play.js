@@ -12,6 +12,7 @@ class Play extends Phaser.Scene {
         {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
         //game.load.audio('folk', ['./assets/folk.mp3']);
         this.load.audio('folk', './assets/folk.mp3');
+        this.load.image('spaceship2', './assets/Rocket_Patrol_Ship2.png');
     }
 
     create() {
@@ -34,6 +35,11 @@ class Play extends Phaser.Scene {
         this.ship01 = new Spaceship(this, game.config.width +192, 132, 'spaceship', 0, 30).setOrigin(0,0);
         this.ship02 = new Spaceship(this, game.config.width +96, 196, 'spaceship', 0, 20).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, 260, 'spaceship', 0, 10).setOrigin(0,0);
+        
+        //add new type of ship
+        this.ship04 = new Spaceship2(this, game.config.width +192, 175,  'spaceship2', 0, 50).setOrigin(0,0);
+        this.ship05 = new Spaceship2(this, game.config.width +192, 250,  'spaceship2', 0, 50).setOrigin(0,0);
+        this.ship06 = new Spaceship2(this, game.config.width +192, 300,  'spaceship2', 0, 50).setOrigin(0,0);
         //define keyboard keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -108,7 +114,7 @@ class Play extends Phaser.Scene {
         if(this.startTime -this.clock.getElapsedSeconds() == 0){
             this.gameOver = true;
             
-            console.log('hi');
+            //console.log('hi');
         }
         //console.log(this.clock.getElapsedSeconds());
         //check key input for restart
@@ -137,6 +143,9 @@ class Play extends Phaser.Scene {
             this.ship01.update();
             this.ship02.update();
             this.ship03.update();
+            this.ship04.update();
+            this.ship05.update();
+            this.ship06.update();
         }
         
 
@@ -158,6 +167,12 @@ class Play extends Phaser.Scene {
             this.p1Rocket.reset();
             //this.ship01.reset(); //do i still need this???
             this.shipExplode(this.ship01);
+        }
+        if(this.checkCollision(this.p1Rocket, this.ship04)){
+            //console.log('kaboom ship 01');
+            this.p1Rocket.reset();
+            //this.ship01.reset(); //do i still need this???
+            this.shipExplode(this.ship04);
         }
     }
 

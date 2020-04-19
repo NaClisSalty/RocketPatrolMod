@@ -70,6 +70,7 @@ class Menu extends Phaser.Scene {
             //easy mode
             game.settings = {
                 spaceshipSpeed: 3,
+                spaceshipSpeed2: 5,
                 gameTimer: 60000
                 
             }
@@ -81,6 +82,7 @@ class Menu extends Phaser.Scene {
             //hard mode
             game.settings = {
                 spaceshipSpeed: 4,
+                spaceshipSpeed2: 6,
                 gameTimer: 4500
             }
             this.sound.play('sfx_select');
