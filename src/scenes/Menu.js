@@ -22,17 +22,23 @@ class Menu extends Phaser.Scene {
 
         //launch next scene
         //this.scene.start("playScene");
+        
+        //background rect
+        
+
 
         //menu display
         let menuConfig = {
-            fontFamily: 'Courier',
-            fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            fontFamily: 'Impact',
+            fontSize: '48px',
+            backgroundColor: 'Black',
+            color: 'Red',
             align: 'right',
             padding: {
-                top: 5,
-                bottom: 5,
+                top: 10,
+                bottom: 10,
+                left: 10,
+                right: 10,
             },
             fixedWidth: 0
         }        
@@ -42,12 +48,19 @@ class Menu extends Phaser.Scene {
         let centerY = game.config.height/2;
         let textSpacer = 64;
 
+        this.add.rectangle(centerX,centerY, 540, 350, 0xffffff).setOrigin(0.5);
         this.add.text(centerX, centerY- textSpacer, 'ROCKET PATROL', menuConfig).setOrigin(0.5);
+        menuConfig.backgroundColor =null;
+        menuConfig.fontSize = '28px';
+        menuConfig.color = 'Blue';
+        //menuConfig.backgroundColor = '#00FF00';
+        menuConfig.padding.top = 20;
         this.add.text(centerX, centerY, 'Use arrows to move and (F) to Fire', menuConfig).setOrigin(0.5);
-        menuConfig.backgroundColor = '#00FF00';
-        menuConfig.color = '#000';
+        //menuConfig.backgroundColor = '#00FF00';
+        //menuConfig.color = '#000';
         this.add.text(centerX, centerY+ textSpacer, 'Press LEFT for Easy or RIGHT for Hard', menuConfig).setOrigin(0.5);
 
+        
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
     }
